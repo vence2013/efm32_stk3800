@@ -1,6 +1,6 @@
-11:58:49 **** Incremental Build of configuration GNU ARM v7.2.1 - Debug for project Mak-er_case1 ****
+14:56:26 **** Incremental Build of configuration GNU ARM v7.2.1 - Debug for project Mak-er_case1 ****
 make -j12 all 
 make: Nothing to be done for `all'.
 
-11:58:50 Build Finished (took 849ms)
+14:56:28 Build Finished (took 1s.199ms)
 

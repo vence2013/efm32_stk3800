@@ -1,13 +1,13 @@
-11:57:24 **** Incremental Build of configuration GNU ARM v7.2.1 - Debug for project Mak-er_case1 ****
+14:55:22 **** Incremental Build of configuration GNU ARM v7.2.1 - Debug for project Mak-er_case1 ****
 make -j12 all 
-Building file: C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_cmu.c
+Building file: C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_core.c
 Invoking: GNU ARM C Compiler
-arm-none-eabi-gcc -g3 -gdwarf-2 -mcpu=cortex-m4 -mthumb -std=c99 '-DEFM32WG990F256=1' -I"C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7//platform/CMSIS/Include" -I"C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7//hardware/kit/common/bsp" -I"C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7//hardware/kit/common/drivers" -I"C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7//hardware/kit/EFM32WG_STK3800/config" -I"C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7//platform/Device/SiliconLabs/EFM32WG/Include" -I"C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7//platform/emlib/inc" -I"D:\workdata\efm32_stk3800\Mak-er_case1\src" -I"D:\workdata\efm32_stk3800\Mak-er_case1\src\drv" -I"D:\workdata\efm32_stk3800\Mak-er_case1\src\hal" -O0 -Wall -c -fmessage-length=0 -mno-sched-prolog -fno-builtin -ffunction-sections -fdata-sections -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -MMD -MP -MF"emlib/em_cmu.d" -MT"emlib/em_cmu.o" -o "emlib/em_cmu.o" "C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_cmu.c"
-Finished building: C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_cmu.c
+arm-none-eabi-gcc -g3 -gdwarf-2 -mcpu=cortex-m4 -mthumb -std=c99 '-DEFM32WG990F256=1' -I"C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7//platform/CMSIS/Include" -I"C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7//hardware/kit/common/bsp" -I"C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7//hardware/kit/common/drivers" -I"C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7//hardware/kit/EFM32WG_STK3800/config" -I"C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7//platform/Device/SiliconLabs/EFM32WG/Include" -I"C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7//platform/emlib/inc" -I"D:\workdata\efm32_stk3800\Mak-er_case1\src" -I"D:\workdata\efm32_stk3800\Mak-er_case1\src\drv" -I"D:\workdata\efm32_stk3800\Mak-er_case1\src\hal" -I"D:\workdata\efm32_stk3800\Mak-er_case1\src\lib" -I"D:\workdata\efm32_stk3800\Mak-er_case1\src\app" -O0 -Wall -c -fmessage-length=0 -mno-sched-prolog -fno-builtin -ffunction-sections -fdata-sections -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -MMD -MP -MF"emlib/em_core.d" -MT"emlib/em_core.o" -o "emlib/em_core.o" "C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_core.c"
+Finished building: C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_core.c
  
 Building target: Mak-er_case1.axf
 Invoking: GNU ARM C Linker
-arm-none-eabi-gcc -g3 -gdwarf-2 -mcpu=cortex-m4 -mthumb -T "Mak-er_case1.ld" -Xlinker --gc-sections -Xlinker -Map="Mak-er_case1.map" -mfpu=fpv4-sp-d16 -mfloat-abi=softfp --specs=nano.specs -o Mak-er_case1.axf "./BSP/bsp_trace.o" "./CMSIS/EFM32WG/startup_efm32wg.o" "./CMSIS/EFM32WG/system_efm32wg.o" "./emlib/em_cmu.o" "./emlib/em_gpio.o" "./emlib/em_system.o" "./src/drv/led.o" "./src/main.o" "./src/utils.o" -Wl,--start-group -lgcc -lc -lnosys -Wl,--end-group
+arm-none-eabi-gcc -g3 -gdwarf-2 -mcpu=cortex-m4 -mthumb -T "Mak-er_case1.ld" -Xlinker --gc-sections -Xlinker -Map="Mak-er_case1.map" -mfpu=fpv4-sp-d16 -mfloat-abi=softfp --specs=nano.specs -o Mak-er_case1.axf "./BSP/bsp_trace.o" "./CMSIS/EFM32WG/startup_efm32wg.o" "./CMSIS/EFM32WG/system_efm32wg.o" "./Drivers/segmentlcd.o" "./emlib/em_burtc.o" "./emlib/em_cmu.o" "./emlib/em_core.o" "./emlib/em_emu.o" "./emlib/em_gpio.o" "./emlib/em_lcd.o" "./emlib/em_rmu.o" "./emlib/em_system.o" "./src/app/clockApp_stk.o" "./src/drv/led.o" "./src/lib/clock.o" "./src/main.o" "./src/utils.o" -Wl,--start-group -lgcc -lc -lnosys -Wl,--end-group
 Finished building target: Mak-er_case1.axf
  
 Building hex file: Mak-er_case1.hex
@@ -23,33 +23,31 @@ Running size tool
 arm-none-eabi-size "Mak-er_case1.axf" -A
 Mak-er_case1.axf  :
 section              size        addr
-.text                3608           0
-.ARM.exidx              8        3608
-.data                 116   536870912
-.bss                   28   536871028
-.heap                3072   536871056
-.stack_dummy         1024   536871056
+.text               23084           0
+.ARM.exidx              8       23084
+.data                 612   536870912
+.bss                  236   536871528
+.heap                3072   536871768
+.stack_dummy         1024   536871768
 .ARM.attributes        46           0
 .comment              126           0
-.debug_info         12281           0
-.debug_abbrev        2572           0
-.debug_loc           5072           0
-.debug_aranges        688           0
-.debug_ranges         560           0
-.debug_macro       148598           0
-.debug_line         14016           0
-.debug_str         888637           0
-.debug_frame         2564           0
-Total             1083016
+.debug_info         49134           0
+.debug_abbrev        8305           0
+.debug_loc          17426           0
+.debug_aranges       2096           0
+.debug_ranges        1856           0
+.debug_macro       160130           0
+.debug_line         37257           0
+.debug_str         920400           0
+.debug_frame        11180           0
+.stabstr              223           0
+Total             1236215
 
 
  
-11:57:44 **** Incremental Build of configuration GNU ARM v7.2.1 - Debug for project Mak-er_case1 ****
+14:55:42 **** Incremental Build of configuration GNU ARM v7.2.1 - Debug for project Mak-er_case1 ****
 make -j12 all 
 make: Nothing to be done for `all'.
-11:58:17 **** Incremental Build of configuration GNU ARM v7.2.1 - Debug for project Mak-er_case1 ****
-make -j12 all 
-make: Nothing to be done for `all'.
-11:58:49 **** Incremental Build of configuration GNU ARM v7.2.1 - Debug for project Mak-er_case1 ****
+14:56:26 **** Incremental Build of configuration GNU ARM v7.2.1 - Debug for project Mak-er_case1 ****
 make -j12 all 
 make: Nothing to be done for `all'.

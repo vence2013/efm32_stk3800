@@ -1,0 +1,30 @@
+#include "em_chip.h"
+#include "bsp_trace.h"
+#include "hal.h"
+#include "utils.h"
+
+static uint32_t resetcause = 0;
+static uint32_t burtcCountAtWakeup = 0;
+
+int main(void)
+{
+	/* Chip errata */
+	CHIP_Init();
+	/* If first word of user data page is non-zero, enable Energy Profiler trace */
+	BSP_TraceProfilerSetup();
+
+	/* Read and clear RMU->RSTCAUSE as early as possible */
+
+	/*   RMU_ResetCauseGet() cannot yet (as of emlib version 2.4.1) be used as it masks out RMU_RSTCAUSE_BUMODERESET.
+	This will be fixed in an upcoming release of emlib */
+	resetcause = RMU_ResetCauseGet();
+	//resetcause = RMU->RSTCAUSE;
+	RMU_ResetCauseClear();
+
+	/* Infinite loop */
+	while (1) {
+		Drv_led_toggle( LED0 );
+
+		delay_ms( 1000 );
+	}
+}
