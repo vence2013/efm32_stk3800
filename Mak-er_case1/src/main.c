@@ -8,6 +8,7 @@
 #include "utils.h"
 #include "clock.h"
 #include "clockApp_stk.h"
+#include "dbg.h"
 
 
 static uint32_t resetcause = 0;
@@ -91,6 +92,9 @@ int main(void)
 	/* If first word of user data page is non-zero, enable Energy Profiler trace */
 	BSP_TraceProfilerSetup();
 
+	dbg_lcd_basic();
+
+#if 0
 	/* Read and clear RMU->RSTCAUSE as early as possible */
 	resetcause = RMU_ResetCauseGet();
 	RMU_ResetCauseClear();
@@ -153,13 +157,15 @@ int main(void)
 	/* Enable BURTC interrupts */
 	NVIC_ClearPendingIRQ( BURTC_IRQn );
 	NVIC_EnableIRQ( BURTC_IRQn );
-
+#endif
 	/* Infinite loop */
 	while (1) {
+#if 0
 	    /* Sleep while waiting for interrupt */
 	    EMU_EnterEM2(true);
 
 	    /* Update display if necessary */
 	    clockAppDisplay();
+#endif
 	}
 }

@@ -1,11 +1,8 @@
-#ifndef __DRV_H__
-#define __DRV_H__
+#ifndef __DBG_LCD_H__
+#define __DBG_LCD_H__
 
 
 /* Include File -------------------------------------------------------------*/
-
-#include "typedef.h"
-#include "led.h"
 
 
 /* Macro Definition ---------------------------------------------------------*/
@@ -18,6 +15,8 @@
 
 
 /* Exported Function --------------------------------------------------------*/
+
+void dbg_lcd_basic( void );
 
 
 #endif
