@@ -6,6 +6,40 @@
 #include "utils.h"
 
 
+void dbg_lcd_contrast( void )
+{
+	LCD_Init_TypeDef lcdInit = LCD_INIT_DEFAULT;
+	u8 level = 0;
+
+	/* Basic clock setting */
+	CMU_ClockEnable(cmuClock_CORELE, true);
+	CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFRCO);
+	CMU_ClockEnable(cmuClock_LCD, true);
+
+	lcdInit.mux = lcdMuxOctaplex;
+	LCD_Init(&lcdInit);
+
+	/* Enable all segment */
+	LCD_SegmentRangeEnable(lcdSegment12_15, true);
+	LCD_SegmentRangeEnable(lcdSegment16_19, true);
+	LCD_SegmentRangeEnable(lcdSegment28_31, true);
+	LCD_SegmentRangeEnable(lcdSegment32_35, true);
+	LCD_SegmentRangeEnable(lcdSegment36_39, true);
+
+	/* Try different bias */
+	LCD_BiasSet( lcdBiasOneFourth );
+
+	while(1)
+	{
+		SegmentLCD_LowerNumber( level );
+		LCD_ContrastSet( level );
+
+		level = (level + 1) % 32;
+		delay_ms( 3000 );
+	}
+}
+
+
 /*
  * All Segment
  *   SegmentLCD_AllOff()/SegmentLCD_AllOn(), on/off

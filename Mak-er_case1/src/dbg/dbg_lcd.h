@@ -16,6 +16,7 @@
 
 /* Exported Function --------------------------------------------------------*/
 
+void dbg_lcd_contrast( void );
 void dbg_lcd_basic( void );
 
 

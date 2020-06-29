@@ -1,11 +1,10 @@
-#ifndef __DRV_H__
-#define __DRV_H__
+#ifndef __APP_H__
+#define __APP_H__
 
 
 /* Include File -------------------------------------------------------------*/
 
 #include "typedef.h"
-#include "led.h"
 
 
 /* Macro Definition ---------------------------------------------------------*/
@@ -19,7 +18,8 @@
 
 /* Exported Function --------------------------------------------------------*/
 
-void Drv_setup( void );
+void App_rtc_setup( void );
+void App_rtc_display( void );
 
 
 #endif
