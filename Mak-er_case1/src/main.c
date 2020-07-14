@@ -1,6 +1,8 @@
 #include "em_chip.h"
 #include "bsp_trace.h"
+#include "em_emu.h"
 #include "hal.h"
+#include "app.h"
 #include "dbg.h"
 
 
@@ -12,6 +14,8 @@ int main(void)
 	BSP_TraceProfilerSetup();
 
 	Drv_setup();
+
+	//dbg_emu();
 
 	App_rtc_setup();
 

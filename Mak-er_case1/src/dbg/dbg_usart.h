@@ -1,12 +1,10 @@
-#ifndef __DBG_H__
-#define __DBG_H__
+#ifndef __DBG_USART_H__
+#define __DBG_USART_H__
 
 
 /* Include File -------------------------------------------------------------*/
 
 #include "typedef.h"
-#include "dbg_lcd.h"
-#include "dbg_usart.h"
 
 
 /* Macro Definition ---------------------------------------------------------*/
@@ -20,10 +18,7 @@
 
 /* Exported Function --------------------------------------------------------*/
 
-void dbg_wdog( void );
-void dbg_rmu( void );
-void dbg_cmu( void );
-void dbg_emu( void );
+void dbg_usart_basic( void );
 
 
 #endif

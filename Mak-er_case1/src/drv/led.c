@@ -1,4 +1,5 @@
 #include "led.h"
+#include "utils.h"
 #include "pindef.h"
 
 
@@ -45,4 +46,14 @@ void Drv_led_toggle(u8 sel)
 		GPIO_PinOutToggle(LED_Port, LED1_Pin);
 		break;
 	}
+}
+
+/******************************************************************************
+ * @brief  LED flush
+ *****************************************************************************/
+void Drv_led_flush(u8 sel, u8 ms)
+{
+	Drv_led(sel, LED_ALL);
+	delay_ms( ms );
+	Drv_led(sel, 0);
 }

@@ -6,6 +6,7 @@
 
 #include "typedef.h"
 #include "led.h"
+#include "usart.h"
 
 
 /* Macro Definition ---------------------------------------------------------*/

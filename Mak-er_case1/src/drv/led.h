@@ -22,5 +22,6 @@ enum { LED0 = 0X01, LED1 = 0X02, LED_ALL = 0X03 };
 
 void Drv_led(u8 mask, u8 ctrl);
 void Drv_led_toggle(u8 sel);
+void Drv_led_flush(u8 sel, u8 ms);
 
 #endif
