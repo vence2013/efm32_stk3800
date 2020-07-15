@@ -3,6 +3,7 @@
 #include "em_usart.h"
 #include "usart.h"
 #include "pindef.h"
+#include <stdio.h>
 
 
 volatile struct circularBuffer
@@ -176,6 +177,46 @@ s32 usart_put_char(u8 ch)
 
 	return 0;
 }
+
+
+size_t _write(int handle, const unsigned char* buffer, unsigned char size)
+{
+	unsigned char nChars = 0;
+
+	if (buffer == 0)
+	{
+		return 0;
+	}
+
+	for (/* Empty*/; size != 0; --size)
+	{
+		USART_Tx(uart, (u8)buffer[nChars]);
+		++nChars;
+	}
+
+	return nChars;
+}
+
+#if 0
+{
+	u8 i, buf[16];
+
+	memset(buf, 0, 16);
+	sprintf((char *)buf, "Hello World!\r\n");
+	for (i = 0; i<strlen(buf); i++)
+	{
+		usart_put_char2(buf[i]);
+	}
+}
+
+void usart_put_char2(u8 ch)
+{
+	USART_Tx(uart, ch);
+
+	/*Waiting for transmission of last byte */
+	while (!(uart->STATUS & USART_STATUS_TXC)) ;
+}
+#endif
 
 /******************************************************************************
  * @brief  uartGetData function

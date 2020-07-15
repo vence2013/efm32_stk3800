@@ -3,7 +3,7 @@
 #include "em_emu.h"
 #include "hal.h"
 #include "app.h"
-#include "dbg.h"
+#include "tc.h"
 
 
 int main(void)
@@ -13,15 +13,15 @@ int main(void)
 	/* If first word of user data page is non-zero, enable Energy Profiler trace */
 	BSP_TraceProfilerSetup();
 
-	Drv_setup();
+	tc_cmu_info_display();
 
-	//dbg_emu();
+	Drv_setup();
 
 	App_rtc_setup();
 
 	/* Infinite loop */
 	while (1) {
-	    EMU_EnterEM2( false );
+	    EMU_EnterEM2( true );
 
 	    App_rtc_display();
 	}

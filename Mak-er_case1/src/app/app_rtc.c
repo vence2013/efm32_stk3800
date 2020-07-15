@@ -6,6 +6,8 @@
 #include "segmentlcd.h"
 #include "app.h"
 #include "drv.h"
+#include <stdio.h>
+#include <string.h>
 
 
 /***************************************************************************//**
@@ -32,11 +34,6 @@ void burtc_setup(void)
     /* Start LFXO and wait until it is stable */
     CMU_OscillatorEnable(cmuOsc_LFXO, true, true);
 
-	/* Enable access to BURTC registers */
-	RMU_ResetControl(rmuResetBU, rmuResetModeClear);
-
-	BURTC_CompareSet( 0, COUNTS_PER_SEC );
-
 	burtcInit.mode = burtcModeEM4;
 	burtcInit.clkSel = burtcClkSelLFXO;
 	burtcInit.clkDiv = burtcClkDiv_128;
@@ -45,6 +42,8 @@ void burtc_setup(void)
 	burtcInit.lowPowerMode = burtcLPDisable;
 	/* Initialize BURTC with burtcInit struct */
 	BURTC_Init( &burtcInit );
+
+	BURTC_CompareSet( 0, COUNTS_PER_SEC );
 
 	NVIC_EnableIRQ(BURTC_IRQn);
 	BURTC_IntEnable( BURTC_IF_COMP0 );
@@ -117,6 +116,13 @@ void App_rtc_setup( void )
 	initialCalendar.tm_yday   =  0;   /* 1st day of the year (0-365) */
 	initialCalendar.tm_isdst  = -1;    /* Daylight saving time; enabled (>0), disabled (=0) or unknown (<0) */
 
+	{
+		u8 buf[64];
+
+		memset(buf, 0, sizeof(buf));
+		sprintf((char *)buf, "reset cause:%08x, burtc count:%d\r\n", resetcause, burtcCountAtWakeup);
+		usart_put_data(buf, strlen((char *)buf));
+	}
 	/* Set the calendar */
 	clockInit(&initialCalendar);
 
@@ -129,7 +135,8 @@ void App_rtc_setup( void )
 		Drv_led(LED_ALL, LED0);
 
 		clockSetStartTime( BURTC_RetRegGet( 1 ) );
-		BURTC_CompareSet( 0, burtcCount );
+		BURTC_CompareSet( 0, burtcCount + COUNTS_PER_SEC );
+
 	    /* Reset timestamp */
 	    BURTC_StatusClear();
 	}

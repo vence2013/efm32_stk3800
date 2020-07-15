@@ -1,6 +1,7 @@
 #include "em_wdog.h"
 #include "dbg.h"
 #include "drv.h"
+#include "utils.h"
 
 
 /* 1. feed    : usart data 0x00 - 0xff

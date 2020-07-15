@@ -26,5 +26,4 @@ s32 usart_put_char(u8 ch);
 s32 usart_get_data(u8 * dataPtr, u32 dataLen);
 s32 usart_put_data(u8 * dataPtr, u32 dataLen);
 
-
 #endif
