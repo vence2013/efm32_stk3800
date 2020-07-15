@@ -10,10 +10,26 @@ void tc_cmu_info( void )
 {
 	u32 reg;
 
+	printf("Oscillators Configuration\r\n");
+
+	{
+		u8 band[16];
+
+		memset(band, 0, 16);
+		reg = CMU->HFRCOCTRL;
+		switch((reg>>8)&0X07)
+		{
+		case 0: sprintf((char *)band, "1MHz"); break;
+		case 1: sprintf((char *)band, "7MHz"); break;
+		case 2: sprintf((char *)band, "11MHz"); break;
+		case 3: sprintf((char *)band, "14MHz"); break;
+		case 4: sprintf((char *)band, "21MHz"); break;
+		case 5: sprintf((char *)band, "28MHz"); break;
+		}
+		printf("\tHFRCO band:%s\r\n", band);
+	}
 	{
 		u8 mode[16], boost[16], timeout[16];
-
-		printf("Oscillators Configuration\r\n");
 
 		memset(mode, 0, 16);
 		memset(boost, 0, 16);
@@ -89,13 +105,13 @@ void tc_cmu_info( void )
 				(reg&0X100 ? 1 : 0), (reg&0X200 ? 1 : 0), (reg&0X2000 ? 1 : 0));
 	}
 
+	printf("High Frequency Portion\r\n");
+
 	{
 		u8 div[16];
 
-		printf("High Frequency Portion\r\n");
-
 		reg = CMU->CTRL;
-		printf("\tHFCLK Division:%d\r\n", (reg>>14)+1);
+		printf("\tHFCLK Division:%d, Frequency:%ld\r\n", (reg>>14)+1, CMU_ClockFreqGet(cmuClock_HF));
 
 		/* HFCORECLK */
 		reg = CMU->HFCORECLKDIV;
@@ -113,7 +129,7 @@ void tc_cmu_info( void )
 		case 8: sprintf((char *)div, "/256"); break;
 		case 9: sprintf((char *)div, "/512"); break;
 		}
-		printf("\t\tHFCORECLK Division:%s\r\n", div);
+		printf("\t\tHFCORECLK Division:%s, Frequency:%ld\r\n", div, CMU_ClockFreqGet(cmuClock_CORE));
 
 		{
 			printf("\t\tHFCORECLK Enabled Peripheral\r\n");
@@ -144,7 +160,8 @@ void tc_cmu_info( void )
 		case 8: sprintf((char *)div, "/256"); break;
 		case 9: sprintf((char *)div, "/512"); break;
 		}
-		printf("\t\tHFPERCLK Enable:%d, Division:%s\r\n", (reg&0X100) ? 1 : 0, div);
+		printf("\t\tHFPERCLK Enable:%d, Division:%s, Frequency:%ld\r\n", (reg&0X100) ? 1 : 0, div,
+				CMU_ClockFreqGet(cmuClock_HFPER));
 
 		{
 			printf("\t\tHFPERCLK Enabled Peripheral\r\n");
@@ -172,10 +189,10 @@ void tc_cmu_info( void )
 		}
 	}
 
+	printf("Low Frequency Portion\r\n");
+
 	{
 		u8 sel[16];
-
-		printf("Low Frequency Portion\r\n");
 
 		memset(sel, 0, 16);
 		reg = CMU->LFCLKSEL;
@@ -186,7 +203,7 @@ void tc_cmu_info( void )
 		case 2: sprintf((char *)sel, "LFXO"); break;
 		case 3: sprintf((char *)sel, "HFCORECLKLEDIV2"); break;
 		}
-		printf("\tLFA Source:%s\r\n", sel);
+		printf("\tLFA Source:%s, Frequency:%ld\r\n", sel, CMU_ClockFreqGet(cmuClock_LFA));
 
 		{
 			printf("\t\tLESENSE\t Enable:%d, Division:%d\r\n", (CMU->LFACLKEN0&0X01) ? 1 : 0, 1<<((CMU->LFAPRESC0>>0)&0X03));
@@ -204,7 +221,7 @@ void tc_cmu_info( void )
 		case 2: sprintf((char *)sel, "LFXO"); break;
 		case 3: sprintf((char *)sel, "HFCORECLKLEDIV2"); break;
 		}
-		printf("\tLFB Source:%s\r\n", sel);
+		printf("\tLFB Source:%s, Frequency:%ld\r\n", sel, CMU_ClockFreqGet(cmuClock_LFB));
 
 		{
 			printf("\t\tLEUART0\t Enable:%d, Division:%d\r\n", (CMU->LFBCLKEN0&0X01) ? 1 : 0, 1<<((CMU->LFAPRESC0>>0)&0X03));
@@ -225,6 +242,62 @@ void tc_cmu_info_display( void )
 	while(1)
 	{
 		;
+	}
+}
+
+/* watch current during different clock enable. */
+void tc_cmu_control( void )
+{
+	while(1)
+	{
+		{
+			CMU_OscillatorEnable(cmuOsc_LFRCO, true, true);
+			CMU_OscillatorEnable(cmuOsc_LFXO, false, false);
+			CMU_OscillatorEnable(cmuOsc_HFXO, false, false);
+			CMU_HFRCOBandSet(cmuHFRCOBand_14MHz);
+			CMU_ClockDivSet(cmuClock_CORE, 1);
+		}
+		usart_setup();
+		printf("\r\n------------------Default-------------------------------\r\n");
+		tc_cmu_info();
+		delay_ms( 10000 );
+
+		/* all oscillator enable */
+		printf("\r\n------------------Enable all Oscillator--------------\r\n");
+		{
+			CMU_HFXOInit_TypeDef initHFXO = CMU_HFXOINIT_DEFAULT;
+			CMU_LFXOInit_TypeDef initLFXO = CMU_LFXOINIT_DEFAULT;
+
+			CMU_HFXOInit(&initHFXO);
+			CMU_OscillatorEnable(cmuOsc_HFXO, true, true);
+			CMU_LFXOInit(&initLFXO);
+			CMU_OscillatorEnable(cmuOsc_LFXO, true, true);
+		}
+		tc_cmu_info();
+		delay_ms( 10000 );
+
+		/* all oscillator disable except HFRCO */
+		printf("\r\n------------------Disable all Oscillator(except HFRCO)---\r\n");
+		{
+			CMU_OscillatorEnable(cmuOsc_LFXO, false, false);
+			CMU_OscillatorEnable(cmuOsc_LFRCO, false, false);
+			CMU_OscillatorEnable(cmuOsc_HFXO, false, false);
+		}
+		tc_cmu_info();
+		delay_ms( 10000 );
+
+		/* HFRCO at 21MHz */
+		printf("\r\n------------------HFRCO 21MHz-------------------------------\r\n");
+		CMU_HFRCOBandSet(cmuHFRCOBand_21MHz);
+		usart_setup();
+		tc_cmu_info();
+		delay_ms( 10000 );
+
+		/* HFCORECLK /512 */
+		printf("\r\n------------------HFCORECLK / 512----------------------------\r\n");
+		CMU_ClockDivSet(cmuClock_CORE, 512);
+		tc_cmu_info();
+		delay_ms( 5000 );
 	}
 }
 

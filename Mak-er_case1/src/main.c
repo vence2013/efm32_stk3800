@@ -13,7 +13,7 @@ int main(void)
 	/* If first word of user data page is non-zero, enable Energy Profiler trace */
 	BSP_TraceProfilerSetup();
 
-	tc_cmu_info_display();
+	tc_blinky();
 
 	Drv_setup();
 
