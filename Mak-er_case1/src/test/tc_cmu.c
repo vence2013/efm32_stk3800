@@ -245,7 +245,15 @@ void tc_cmu_info_display( void )
 	}
 }
 
-/* watch current during different clock enable. */
+/* watch current during different clock enable.
+ * 1. Default: 4.8mA
+ * 2. Enable all oscillator: 4.9mA
+ * 3. Disable all oscillator: 4.8mA
+ * 4. HFRCO 21MHz: 6.6mA
+ * 5. HFCORECLK /512: 1.1mA
+ *
+ * Warning: do not control AUXFRCO, may cause debug problem!
+ */
 void tc_cmu_control( void )
 {
 	while(1)
@@ -297,7 +305,52 @@ void tc_cmu_control( void )
 		printf("\r\n------------------HFCORECLK / 512----------------------------\r\n");
 		CMU_ClockDivSet(cmuClock_CORE, 512);
 		tc_cmu_info();
-		delay_ms( 5000 );
+		delay_ms( 20 );
+	}
+}
+
+
+/**************************************************************************//**
+ * @brief CMU IRQ handler.
+ *****************************************************************************/
+void CMU_IRQHandler(void)
+{
+	u32 flags = CMU_IntGet();
+
+	if (CMU_IFC_HFXORDY & CMU_IntGet())
+	{
+		/* Clear interrupt flag */
+		CMU_IntClear(CMU_IFC_HFXORDY);
+
+		Drv_led(LED0, LED0);
+	}
+}
+
+void tc_cmu_hfclk_switch_to_hfxo( void )
+{
+	CMU_LFXOInit_TypeDef lfxoInit = CMU_LFXOINIT_DEFAULT;
+
+	usart_setup();
+	tc_cmu_info();
+
+	/* init when oscillator disabled, enable after init */
+	CMU_LFXOInit(&lfxoInit);
+	CMU_OscillatorEnable(cmuOsc_LFXO, true, true);
+
+	CMU_IntEnable( CMU_IFC_HFXORDY );
+	NVIC_ClearPendingIRQ(CMU_IRQn);
+	NVIC_EnableIRQ(CMU_IRQn);
+
+	while(CMU->STATUS&CMU_STATUS_HFXORDY) ;
+	CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFXO);
+
+	usart_setup();
+	tc_cmu_info();
+
+	while(1)
+	{
+		Drv_led_toggle( LED1 );
+		delay_ms( 1000 );
 	}
 }
 

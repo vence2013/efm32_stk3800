@@ -13,7 +13,7 @@ int main(void)
 	/* If first word of user data page is non-zero, enable Energy Profiler trace */
 	BSP_TraceProfilerSetup();
 
-	tc_blinky();
+	tc_cmu_hfclk_switch_to_hfxo();
 
 	Drv_setup();
 

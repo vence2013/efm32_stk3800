@@ -17,7 +17,7 @@
 #define TESTCASE_MODULE_NONE                                     (0u)
 #define TESTCASE_MODULE_BLINKY                                   (1u)
 #define TESTCASE_MODULE_CMU                                      (2u)
-#define TESTCASE_MODULE_SEL                                      TESTCASE_MODULE_BLINKY
+#define TESTCASE_MODULE_SEL                                      TESTCASE_MODULE_CMU
 
 
 /* Structure Definition -----------------------------------------------------*/
@@ -32,6 +32,7 @@ void tc_blinky( void );
 void tc_cmu_info( void );
 void tc_cmu_info_display( void );
 void tc_cmu_control( void );
+void tc_cmu_hfclk_switch_to_hfxo( void );
 
 
 #endif
