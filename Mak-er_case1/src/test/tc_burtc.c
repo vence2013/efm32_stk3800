@@ -20,12 +20,12 @@ void tc_burtc_info( void )
 
 		printf("Configuration\r\n");
 
-		reg = BURTC->CTRL;
 		memset(mode, 0, 16);
 		memset(lpcom, 0, 16);
 		memset(presc, 0, 16);
 		memset(clksel, 0, 16);
 
+		reg = BURTC->CTRL;
 		switch(reg&0X03)
 		{
 		case 0: sprintf((char *)mode, "Disable"); break;
@@ -99,7 +99,7 @@ void tc_burtc_info( void )
 	}
 }
 
-#if (TESTCASE_MODULE_SEL == TESTCASE_MODULE_EMU)
+#if (TESTCASE_MODULE_SEL == TESTCASE_MODULE_BURTC)
 
 static u8 burtc_int = 0;
 
@@ -197,7 +197,7 @@ void tc_burtc_lfrco_wrap( void )
 	/* Enable access to BURTC registers */
 	RMU_ResetControl(rmuResetBU, rmuResetModeClear);
 
-	/* use ULFRCO as source, only 2 frequency : 2kHz when /1, 1kHz other value */
+	/* LFRCO 32.768 kHz */
 	burtcInit.clkSel       = burtcClkSelLFRCO;
 	burtcInit.clkDiv       = burtcClkDiv_128;
 	burtcInit.compare0Top  = true;
@@ -237,7 +237,7 @@ void tc_burtc_lowpower( void )
 	/* Enable access to BURTC registers */
 	RMU_ResetControl(rmuResetBU, rmuResetModeClear);
 
-	/* use ULFRCO as source, only 2 frequency : 2kHz when /1, 1kHz other value */
+	/* LFRCO 32.768 kHz */
 	burtcInit.clkSel       = burtcClkSelLFRCO;
 	burtcInit.clkDiv       = burtcClkDiv_128;
 	burtcInit.compare0Top  = true;

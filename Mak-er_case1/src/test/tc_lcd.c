@@ -1,0 +1,9 @@
+
+
+#if (TESTCASE_ENABLE)
+
+#if (TESTCASE_MODULE_SEL == TESTCASE_MODULE_CMU_EMU_RMU_BURTC)
+
+#endif
+
+#endif

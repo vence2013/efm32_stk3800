@@ -3,6 +3,8 @@
 #include "tc.h"
 
 
+void tmp_rtc( void );
+
 int main(void)
 {
 	/* Chip errata */
@@ -10,7 +12,7 @@ int main(void)
 	/* If first word of user data page is non-zero, enable Energy Profiler trace */
 	BSP_TraceProfilerSetup();
 
-	tc_burtc_lfrco_wrap();
+	tc_ecrb_timestamp();
 
 	/* Infinite loop */
 	while (1) {
