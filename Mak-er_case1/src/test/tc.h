@@ -24,7 +24,9 @@
 #define TESTCASE_MODULE_RMU                                      (6u)
 #define TESTCASE_MODULE_CMU_EMU_RMU_BURTC                        (7u)
 #define TESTCASE_MODULE_LCD                                      (8u)
-#define TESTCASE_MODULE_SEL                                      TESTCASE_MODULE_CMU_EMU_RMU_BURTC
+#define TESTCASE_MODULE_RTC                                      (9u)
+#define TESTCASE_MODULE_MSC                                     (10u)
+#define TESTCASE_MODULE_SEL                                      TESTCASE_MODULE_MSC
 
 
 /* Structure Definition -----------------------------------------------------*/
@@ -70,5 +72,18 @@ void tc_rmu_backup_mode( void );
 void tc_ecrb_retention_register( void );
 void tc_ecrb_timestamp( void );
 
+
+/* TestCases */
+void tc_lcd_display( void );
+void tc_lcd_segment_enable( void );
+void tc_lcd_mux( void );
+void tc_lcd_config_bias( void );
+void tc_lcd_config_constrast( void );
+void tc_lcd_frame_rate( void );
+
+
+void tc_rtc_interrupt( void );
+
+void tc_msc_read_write( void );
 
 #endif
