@@ -25,5 +25,10 @@
 #define UART_Print_RX_Pin                                         (1)
 #define UART_Print_TX_Pin                                         (0)
 
+/* LEUART0 #LOC0 */
+#define LEUART_Port                                       (gpioPortD)
+#define LEUART_RX_Pin                                             (5)
+#define LEUART_TX_Pin                                             (4)
+
 
 #endif

@@ -11,7 +11,7 @@ int main(void)
 	BSP_TraceProfilerSetup();
 
 	/* Function Verification */
-	gpio_em4_wakup();
+	leuart_send_recv();
 
 	/* Infinite loop */
 	while (1) {

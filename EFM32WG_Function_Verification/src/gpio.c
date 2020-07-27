@@ -20,9 +20,9 @@ void led_setup( void )
 /******************************************************************************
  * @brief  LED control
  *****************************************************************************/
-void led_ctrl(u8 mask, u8 ctrl)
+void led_ctrl(u8 sel, u8 ctrl)
 {
-	if (mask&LED0)
+	if (sel&LED0)
 	{
 		if (ctrl&LED0)
 		{
@@ -33,7 +33,7 @@ void led_ctrl(u8 mask, u8 ctrl)
 			GPIO_PinOutClear(LED_Port, LED0_Pin);
 		}
 	}
-	if (mask&LED1)
+	if (sel&LED1)
 	{
 		if (ctrl&LED1)
 		{
@@ -43,6 +43,18 @@ void led_ctrl(u8 mask, u8 ctrl)
 		{
 			GPIO_PinOutClear(LED_Port, LED1_Pin);
 		}
+	}
+}
+
+/******************************************************************************
+ * @brief  LED toggle
+ *****************************************************************************/
+void led_toggle(u8 sel)
+{
+	switch (sel)
+	{
+	case LED0: GPIO_PinOutToggle(LED_Port, LED0_Pin); break;
+	case LED1: GPIO_PinOutToggle(LED_Port, LED1_Pin); break;
 	}
 }
 
