@@ -11,7 +11,7 @@ int main(void)
 	BSP_TraceProfilerSetup();
 
 	/* Function Verification */
-	leuart_send_recv();
+	burtc_interrupt_every_seconds();
 
 	/* Infinite loop */
 	while (1) {

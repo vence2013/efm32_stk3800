@@ -6,10 +6,10 @@
 #include <string.h>
 
 
+#if (FUNC_VERIFY == FUNC_LEUART)
+
 static LEUART_TypeDef* leuart   = LEUART0;
 
-
-#if (FUNC_VERIFY == FUNC_USART)
 
 void leuart_send_recv( void )
 {

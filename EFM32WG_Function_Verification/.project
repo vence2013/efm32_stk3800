@@ -31,6 +31,11 @@
 			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/hardware/kit/common/bsp/bsp_trace.c</location>
 		</link>
 		<link>
+			<name>emlib/em_burtc.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_burtc.c</location>
+		</link>
+		<link>
 			<name>emlib/em_cmu.c</name>
 			<type>1</type>
 			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_cmu.c</location>
@@ -49,6 +54,11 @@
 			<name>emlib/em_leuart.c</name>
 			<type>1</type>
 			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_leuart.c</location>
+		</link>
+		<link>
+			<name>emlib/em_rmu.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_rmu.c</location>
 		</link>
 		<link>
 			<name>emlib/em_system.c</name>
