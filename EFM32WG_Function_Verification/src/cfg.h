@@ -21,10 +21,11 @@
 #define FUNC_RMU                                                ( 4u)
 #define FUNC_GPIO                                               ( 5u)
 /* Communication */
-#define FUNC_USART                                              (12u)
-#define FUNC_LEUART                                             (13u)
-
-#define FUNC_VERIFY                                              FUNC_BURTC
+#define FUNC_USART                                              (21u)
+#define FUNC_LEUART                                             (22u)
+/* Auxiliary */
+#define FUNC_WDOG                                               (40u)
+#define FUNC_VERIFY                                             FUNC_RMU
 
 
 /* Structure Definition -----------------------------------------------------*/
@@ -37,6 +38,8 @@
 
 #include "cmu.h"
 #include "burtc.h"
+#include "emu.h"
+#include "rmu.h"
 #include "gpio.h"
 #include "usart.h"
 #include "leuart.h"

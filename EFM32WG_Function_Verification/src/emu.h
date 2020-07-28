@@ -1,5 +1,5 @@
-#ifndef __BURTC_H__
-#define __BURTC_H__
+#ifndef __EMU_H__
+#define __EMU_H__
 
 
 /* Include File -------------------------------------------------------------*/
@@ -16,9 +16,10 @@
 
 /* Exported Function --------------------------------------------------------*/
 
-void burtc_info( void );
-/* Test Cases */
-void burtc_interrupt_every_seconds( void );
+void emu_lowpower_modes( void );
+void emu_em2block( void );
+void emu_clock_restore( void );
+void emu_babckup_domain( void );
 
 
 #endif

@@ -11,7 +11,7 @@ int main(void)
 	BSP_TraceProfilerSetup();
 
 	/* Function Verification */
-	burtc_interrupt_every_seconds();
+	rmu_reset_by_system();
 
 	/* Infinite loop */
 	while (1) {

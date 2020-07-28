@@ -2,22 +2,17 @@
 #include "em_emu.h"
 #include "em_rmu.h"
 #include "em_burtc.h"
-#include "tc.h"
-#include "drv.h"
-#include <stdio.h>
+#include "cfg.h"
 
 
-#if (TESTCASE_ENABLE)
-
-void tc_emu_info( void )
+void emu_info( void )
 {
 	u32 reg;
 
-	printf("EMU Configuration\r\n");
 	{
 		reg = EMU->CTRL;
 
-		printf("\tEM2/3\t%s%s\r\n",
+		printf("EM2/3 Configuration:\r\n\t%s%s\r\n",
 				(reg&0X01) ? "Full Voltage Regulator Control, " : "Reduced Voltage Regulator Control, ",
 				(reg&0X02) ? "EM2 Block, " : "");
 	}
@@ -33,7 +28,7 @@ void tc_emu_info( void )
 		case 1: sprintf((char *)osc, "LFRCO"); break;
 		case 2: sprintf((char *)osc, "LFXO"); break;
 		}
-		printf("\tEM4\t%s%s%s%s\r\n",
+		printf("EM4 Configuration:\r\n\t%s%s%s%s\r\n",
 				(reg&0X01) ? "Voltage Regulator Enable, " : "",
 				(reg&0X02) ? "Backup RTC EM4 wakeup Enable, " : "", osc,
 				(reg&0X10) ? "Disable Reset from backup bod in EM4, " : "");
@@ -51,7 +46,7 @@ void tc_emu_info( void )
 		case 2: sprintf((char *)probe, "BUIN"); break;
 		case 3: sprintf((char *)probe, "BUOUT"); break;
 		}
-		printf("\tBakcup Power Domain\t%s%s%s%s\r\n",
+		printf("Bakcup Power Domain:\r\n\t%s%s%s%s\r\n",
 				(reg&0X01) ? "Enable, " : "Disable, ",
 				(reg&0X02) ? "Status Export, " : "",
 				(reg&0X04) ? "Enable BOD calibration mode, " : "",
@@ -59,7 +54,7 @@ void tc_emu_info( void )
 	}
 }
 
-#if (TESTCASE_MODULE_SEL == TESTCASE_MODULE_EMU)
+#if (FUNC_VERIFY == FUNC_EMU)
 
 /***************************************************************************//**
  * @brief RTC Interrupt Handler
@@ -71,10 +66,13 @@ void BURTC_IRQHandler(void)
 	{
 		BURTC_IntClear( BURTC_IF_COMP0 );
 
-		Drv_led_toggle( LED0 );
+		led_toggle( LED0 );
 	}
 }
 
+/* 10s interrupt
+ *   ULFRCO as source, 1 kHz, counter wrap
+ * */
 void burtc_setup( void )
 {
 	BURTC_Init_TypeDef burtcInit = BURTC_INIT_DEFAULT;
@@ -98,96 +96,103 @@ void burtc_setup( void )
 	BURTC_Init( &burtcInit );
 }
 
-/* watch current of different low power mode */
-void tc_emu_lowpower_mode( void )
+/* Observe the current difference in different power modes */
+void emu_lowpower_modes( void )
 {
 	EMU_EM4Init_TypeDef em4Init = EMU_EM4INIT_DEFAULT;
 
 	em4Init.lockConfig = true;
 	EMU_EM4Init(&em4Init);
+
+	burtc_setup();
+
+	led_setup();
+	printf_setup();
+	printf("\r\n Low Power Test \r\n");
+	delay1k( 3000 );
+
+	while(1)
+	{
+		printf("EM1\r\n");
+		delay1k( 10 );
+		EMU_EnterEM1();
+
+		printf("EM2\r\n");
+		delay1k( 10 );
+		EMU_EnterEM2( false );
+
+		printf("EM3\r\n");
+		delay1k( 10 );
+		CMU_OscillatorEnable(cmuOsc_LFRCO, false, false);
+		CMU_OscillatorEnable(cmuOsc_LFXO, false, false);
+		EMU_EnterEM3( false );
+
+		printf("EM4\r\n");
+		delay1k( 10 );
+		EMU_EnterEM4();
+
+		printf("EM0\r\n");
+		delay1k( 10000 );
+	}
+}
+
+
+void emu_em2block( void )
+{
+	EMU_EM4Init_TypeDef em4Init = EMU_EM4INIT_DEFAULT;
+
+	em4Init.lockConfig = true;
+	EMU_EM4Init(&em4Init);
+
+	/* Comment this out to see difference */
+	EMU_EM2Block();
+
+	printf_setup();
+	rmu_info();
+	emu_info();
+
+	delay1k( 5000 );
+	printf("\r\n EM4 Block Test \r\n");
+	EMU_EnterEM4();
+}
+
+void emu_clock_restore( void )
+{
+	CMU_HFXOInit_TypeDef initHFXO = CMU_HFXOINIT_DEFAULT;
+
+	CMU_HFXOInit(&initHFXO);
+	CMU_OscillatorEnable(cmuOsc_HFXO, true, true);
+	CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFXO);
 
 	burtc_setup();
 
 	printf_setup();
-	tc_burtc_info();
+	cmu_info();
+	delay1k( 10 );
 
-	while(1)
-	{
-		printf("Enter EM0\r\n");
-		delay_ms( 10000 );
-		printf("Enter EM1\r\n");
-		EMU_EnterEM1();
-		printf("Enter EM2\r\n");
-		EMU_EnterEM2( false );
-		printf("Enter EM3\r\n");
-		CMU_OscillatorEnable(cmuOsc_LFRCO, false, false);
-		CMU_OscillatorEnable(cmuOsc_LFXO, false, false);
-		EMU_EnterEM3( false );
-		printf("Enter EM4\r\n");
-		EMU_EnterEM4();
-	}
+	/* Switch between true and false */
+	EMU_EnterEM2( false );
+
+	printf_setup();
+	printf("\r\nAfter wakeup from EM2\r\n");
+	cmu_info();
 }
 
-void tc_emu_em2block( void )
+
+/***************************************************************************//**
+ * @brief EMU Interrupt Handler
+ ******************************************************************************/
+void EMU_IRQHandler(void)
 {
-	EMU_EM4Init_TypeDef em4Init = EMU_EM4INIT_DEFAULT;
-
-	em4Init.lockConfig = true;
-	EMU_EM4Init(&em4Init);
-
-	usart_setup();
-	burtc_setup();
-	printf("---- EM2 Block ----\r\n");
-	EMU_EM2Block();
-
-	while(1)
+	if (EMU_IntGet() & EMU_IF_BURDY)
 	{
-		printf("Enter EM0\r\n");
-		delay_ms( 10000 );
-		printf("Enter EM1\r\n");
-		EMU_EnterEM1();
-		printf("Enter EM2\r\n");
-		EMU_EnterEM2( false );
-		printf("Enter EM3\r\n");
-		CMU_OscillatorEnable(cmuOsc_LFRCO, false, false);
-		CMU_OscillatorEnable(cmuOsc_LFXO, false, false);
-		EMU_EnterEM3( false );
-		printf("Enter EM4\r\n");
-		EMU_EnterEM4();
+		EMU_IntClear( EMU_IF_BURDY );
+
+		led_toggle( LED0 );
 	}
 }
 
-/* use HFXO as clock source */
-void tc_emu_save_restore( void )
-{
-	CMU_HFXOInit_TypeDef initHFXO = CMU_HFXOINIT_DEFAULT;
-
-	burtc_setup();
-
-	while(1)
-	{
-		usart_setup();
-		printf("init or wakeup without restore ----\r\n");
-		tc_cmu_info();
-		delay_ms( 10000 );
-
-		CMU_HFXOInit(&initHFXO);
-		CMU_OscillatorEnable(cmuOsc_HFXO, true, true);
-		CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFXO);
-		usart_setup();
-		printf("switch to HFXO ----\r\n");
-		tc_cmu_info();
-
-		EMU_EnterEM2( true );
-		usart_setup();
-		printf("wakeup with restore ----\r\n");
-		tc_cmu_info();
-
-		EMU_EnterEM2( false );
-	}
-}
-
-void budSetup(void)
+void bud_setup(void)
 {
 	/* Assign default TypeDefs */
 	EMU_EM4Init_TypeDef em4Init = EMU_EM4INIT_DEFAULT;
@@ -201,6 +206,7 @@ void budSetup(void)
 	EMU_EM4Init( &em4Init );
 
 	/* Initialize EM4 and Backup Power Domain with init structs */
+	bupdInit.inactivePower = emuPower_MainBU;
 	EMU_BUPDInit( &bupdInit );
 
 	/* Release reset for backup domain */
@@ -210,35 +216,36 @@ void budSetup(void)
 	EMU_EM4Lock( true );
 }
 
-/***************************************************************************//**
- * @brief EMU Interrupt Handler
- ******************************************************************************/
-void EMU_IRQHandler(void)
+/* Do not run under debug !
+ * */
+void emu_babckup_domain( void )
 {
-	if (EMU_IntGet() & EMU_IF_BURDY)
-	{
-		EMU_IntClear( EMU_IF_BURDY );
+	u32 ret;
 
-		Drv_led_toggle( LED1 );
-	}
-}
+	led_setup();
+	printf_setup();
+	ret = rmu_info();
 
-/* do not run under debug */
-void tc_emu_babckup_domain( void )
-{
-	usart_setup();
-	tc_emu_info();
-
-	budSetup();
+	bud_setup();
+	burtc_setup();
 
 	EMU_IntEnable( EMU_IF_BURDY );
 	/* Enable Backup Power Domain interrupts */
 	NVIC_ClearPendingIRQ( EMU_IRQn );
 	NVIC_EnableIRQ( EMU_IRQn );
 
-	delay_ms( 1000 );
-	tc_emu_info();
+	emu_info();
+	if (ret & 0X0008) /* External Pin Reset */
+	{
+		BURTC_RetRegSet(1, 0X12345678);
+	}
+	else
+	{
+		ret = BURTC_RetRegGet( 1 );
+
+		BURTC_RetRegSet(1, ret+1);
+		printf("BURTC Register:%08X.\r\n", ret);
+	}
 }
-#endif
 
 #endif

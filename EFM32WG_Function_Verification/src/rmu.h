@@ -1,5 +1,5 @@
-#ifndef __BURTC_H__
-#define __BURTC_H__
+#ifndef __RMU_H__
+#define __RMU_H__
 
 
 /* Include File -------------------------------------------------------------*/
@@ -16,9 +16,10 @@
 
 /* Exported Function --------------------------------------------------------*/
 
-void burtc_info( void );
+u32 rmu_info( void );
 /* Test Cases */
-void burtc_interrupt_every_seconds( void );
+void rmu_reset_by_por( void );
+void rmu_reset_by_system( void );
 
 
 #endif

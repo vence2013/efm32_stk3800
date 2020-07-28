@@ -1,5 +1,5 @@
-#ifndef __BURTC_H__
-#define __BURTC_H__
+#ifndef __WDOG_H__
+#define __WDOG_H__
 
 
 /* Include File -------------------------------------------------------------*/
@@ -16,9 +16,9 @@
 
 /* Exported Function --------------------------------------------------------*/
 
-void burtc_info( void );
+void wdog_info( void );
 /* Test Cases */
-void burtc_interrupt_every_seconds( void );
+void wdog_feed( void );
 
 
 #endif
