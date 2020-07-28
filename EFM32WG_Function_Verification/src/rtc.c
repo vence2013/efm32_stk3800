@@ -1,26 +1,29 @@
 #include "em_cmu.h"
 #include "em_rtc.h"
-#include "tc.h"
-#include "drv.h"
-#include <stdio.h>
+#include "cfg.h"
 
 
-#if (TESTCASE_ENABLE)
-
-void tc_rtc_info( void )
+void rtc_info( void )
 {
 	u32 reg;
 
-	printf("RTC Configuration\r\n");
 	reg = RTC->CTRL;
-	printf("\t%s%s\r\n",
-			(reg&0X01) ? "Enable, " : "Disable, ",
-			(reg&0X04) ? "Compare Channel 0 is Top Value, " : "");
-	printf("RTC Counter:%ld, Compare 0:%d Compare 1:%d\r\n",
-			RTC_CounterGet(), RTC_CompareGet( 0 ), RTC_CompareGet( 1 ));
+	if (reg&0X01)
+	{
+		printf("RTC Configuration:\r\n\t%s\r\n",
+				(reg&0X04) ? "Compare Channel 0 is Top Value, " : "");
+
+		printf("RTC Counter:%ld, Compare 0: %ld Compare 1: %ld\r\n",
+				RTC_CounterGet(), RTC_CompareGet( 0 ), RTC_CompareGet( 1 ));
+	}
+	else
+	{
+		printf("RTC Disabled\r\n");
+	}
 }
 
-#if (TESTCASE_MODULE_SEL == TESTCASE_MODULE_RTC)
+#if (FUNC_VERIFY == FUNC_RTC)
+
 
 /**************************************************************************//**
  * @brief RTC IRQ handler.
@@ -32,7 +35,7 @@ void RTC_IRQHandler(void)
 		RTC_IntClear( RTC_IF_COMP0 );
 		RTC_CompareSet(0, RTC_CompareGet( 0 ) + 32);
 
-		Drv_led_toggle( LED0 );
+		led_toggle( LED0 );
 	}
 
 	if (RTC_IntGet() & RTC_IF_COMP1)
@@ -40,11 +43,11 @@ void RTC_IRQHandler(void)
 		RTC_IntClear( RTC_IF_COMP1 );
 		RTC_CompareSet(1, RTC_CompareGet( 1 ) + 64);
 
-		Drv_led_toggle( LED1 );
+		led_toggle( LED1 );
 	}
 }
 
-void tc_rtc_interrupt( void )
+void rtc_1s_2s_interrupt( void )
 {
 	RTC_Init_TypeDef initRTC = RTC_INIT_DEFAULT;
 
@@ -58,6 +61,7 @@ void tc_rtc_interrupt( void )
 	initRTC.comp0Top = false;
 	RTC_Init(&initRTC);
 
+	/* 32768 Hz / 1024 = 32 */
 	RTC_CompareSet(0, 32);
 	RTC_CompareSet(1, 64);
 
@@ -65,15 +69,9 @@ void tc_rtc_interrupt( void )
 	NVIC_EnableIRQ( RTC_IRQn );
 	RTC_IntEnable( RTC_IF_COMP0 | RTC_IF_COMP1 );
 
-	usart_setup();
-
-	while(1)
-	{
-		tc_rtc_info();
-		delay_ms( 1000 );
-	}
+	led_setup();
+	printf_setup();
+	rtc_info();
 }
-
-#endif
 
 #endif

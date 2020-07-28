@@ -1,23 +1,19 @@
 #include "em_cmu.h"
 #include "em_msc.h"
-#include "tc.h"
-#include "drv.h"
-#include <stdio.h>
-#include <string.h>
+#include "cfg.h"
 
 
-#if (TESTCASE_ENABLE)
 
-void tc_msc_info( void )
+void msc_info( void )
 {
 	u32 ret;
 
 	{
 		ret = MSC->TIMEBASE;
 
-		printf("MSC Timebase Configuration: %08X\r\n", ret);
-		printf("\tPeriod:%s, base:%d, AUXHFRCO frequency:%ld.\r\n",
-				(ret&0X10000) ? "5us" : "1us", ret&0X3F, CMU_ClockFreqGet(cmuClock_AUX));
+		printf("MSC Timebase: %08X\r\n\tperiod:%s, base:%d\r\n", ret,
+				(ret&0X10000) ? "5us" : "1us", ret&0X3F);
+		printf("AUXHFRCO frequency:%ld.\r\n", CMU_ClockFreqGet(cmuClock_AUX));
 	}
 
 	{
@@ -77,12 +73,9 @@ void tc_msc_info( void )
 	}
 }
 
-#if (TESTCASE_MODULE_SEL == TESTCASE_MODULE_MSC)
+#if (FUNC_VERIFY == FUNC_MSC)
 
-#define ADDR_TEST                                        (0X00010000)
-#define ADDRESS_USER_DATA                                (0X0FE00000)
-
-void tc_msc_read_and_show(u32 address, u32 length)
+void flash_display(u32 address, u32 length)
 {
 	u32 i;
 
@@ -106,33 +99,34 @@ void MSC_IRQHandler(void)
 	if (MSC_IntGet() & MSC_IF_ERASE)
 	{
 		MSC_IntClear( MSC_IF_ERASE );
-		Drv_led(LED0, 0);
+		led_ctrl(LED0, 0);
 	}
 }
 
-void tc_msc_read_write( void )
+#define ADDR_TEST                                        (0X00010000)
+
+void msc_read_write( void )
 {
 	uint32_t userData[2];
 	uint32_t count = 0;
 
-	usart_setup();
 	MSC_Init();
 	/* Enabling Interrupt from BURTC */
 	NVIC_EnableIRQ( MSC_IRQn );
 	MSC_IntEnable( MSC_IF_ERASE );
 
-	tc_msc_info();
+	led_setup();
+	printf_setup();
+	msc_info();
 
 	while(1)
 	{
 		printf("\r\n\r\n\r\nCounter:%ld, Flash at 0X%08X.\r\n", count, ADDR_TEST);
 
-		Drv_led(LED0, LED0);
+		led_ctrl(LED0, LED0);
 		/* Before write, must erase! */
-		MSC_ErasePage( ADDR_TEST );
-		tc_msc_info();
-
-		tc_msc_read_and_show(ADDR_TEST, 16);
+		MSC_ErasePage( (uint32_t *)ADDR_TEST );
+		flash_display(ADDR_TEST, 16);
 
 		while (MSC->STATUS&MSC_STATUS_BUSY) ;
 		userData[0] = 0X2000 + count;
@@ -140,13 +134,11 @@ void tc_msc_read_write( void )
 		MSC_WriteWord((uint32_t *)ADDR_TEST, userData, sizeof(userData));
 		MSC_WriteWord((uint32_t *)(ADDR_TEST+16), (uint32_t *)&count, sizeof(count));
 
-		tc_msc_read_and_show(ADDR_TEST, 16);
+		flash_display(ADDR_TEST, 16);
 
 		count++;
-		delay_ms( 5000 );
+		delay1k( 5000 );
 	}
 }
-
-#endif
 
 #endif

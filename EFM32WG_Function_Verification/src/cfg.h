@@ -24,8 +24,11 @@
 #define FUNC_USART                                              (21u)
 #define FUNC_LEUART                                             (22u)
 /* Auxiliary */
-#define FUNC_WDOG                                               (40u)
-#define FUNC_VERIFY                                             FUNC_RMU
+#define FUNC_WDOG                                               (41u)
+#define FUNC_LCD                                                (42u)
+#define FUNC_RTC                                                (43u)
+#define FUNC_MSC                                                (44u)
+#define FUNC_VERIFY                                             FUNC_MSC
 
 
 /* Structure Definition -----------------------------------------------------*/
@@ -43,6 +46,10 @@
 #include "gpio.h"
 #include "usart.h"
 #include "leuart.h"
+#include "wdog.h"
+#include "lcd.h"
+#include "rtc.h"
+#include "msc.h"
 
 
 #endif

@@ -1,12 +1,8 @@
-#ifndef __DRV_H__
-#define __DRV_H__
+#ifndef __RTC_H__
+#define __RTC_H__
 
 
 /* Include File -------------------------------------------------------------*/
-
-#include "typedef.h"
-#include "led.h"
-#include "usart.h"
 
 
 /* Macro Definition ---------------------------------------------------------*/
@@ -20,7 +16,9 @@
 
 /* Exported Function --------------------------------------------------------*/
 
-void Drv_setup( void );
+void rtc_info( void );
+/* Test Case */
+void rtc_1s_2s_interrupt( void );
 
 
 #endif

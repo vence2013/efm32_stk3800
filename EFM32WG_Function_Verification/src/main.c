@@ -11,7 +11,7 @@ int main(void)
 	BSP_TraceProfilerSetup();
 
 	/* Function Verification */
-	rmu_reset_by_system();
+	msc_read_write();
 
 	/* Infinite loop */
 	while (1) {

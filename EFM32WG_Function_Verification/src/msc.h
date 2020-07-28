@@ -1,10 +1,8 @@
-#ifndef __UTILS_H__
-#define __UTILS_H__
+#ifndef __MSC_H__
+#define __MSC_H__
 
 
 /* Include File -------------------------------------------------------------*/
-
-#include "typedef.h"
 
 
 /* Macro Definition ---------------------------------------------------------*/
@@ -18,7 +16,9 @@
 
 /* Exported Function --------------------------------------------------------*/
 
-void delay_ms(u16 xms);
+void msc_info( void );
+/* Test Cases */
+void msc_read_write( void );
 
 
 #endif
