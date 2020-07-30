@@ -28,7 +28,10 @@
 #define FUNC_LCD                                                (42u)
 #define FUNC_RTC                                                (43u)
 #define FUNC_MSC                                                (44u)
-#define FUNC_VERIFY                                             FUNC_MSC
+/* General */
+#define FUNC_TIMER                                              (61u)
+#define FUNC_ADC                                                (62u)
+#define FUNC_VERIFY                                             FUNC_ADC
 
 
 /* Structure Definition -----------------------------------------------------*/
@@ -50,6 +53,8 @@
 #include "lcd.h"
 #include "rtc.h"
 #include "msc.h"
+#include "timer.h"
+#include "adc.h"
 
 
 #endif

@@ -11,7 +11,7 @@ int main(void)
 	BSP_TraceProfilerSetup();
 
 	/* Function Verification */
-	msc_read_write();
+	adc_single();
 
 	/* Infinite loop */
 	while (1) {
