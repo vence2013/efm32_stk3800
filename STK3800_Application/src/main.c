@@ -7,7 +7,7 @@ int main(void)
   /* Chip errata */
   CHIP_Init();
 
-  app_rtc_clock_task();
+  rtc_clock_task();
 
   /* Infinite loop */
   while (1) {

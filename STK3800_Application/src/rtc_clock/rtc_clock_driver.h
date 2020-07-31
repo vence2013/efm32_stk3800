@@ -4,6 +4,8 @@
 
 /* Include File -------------------------------------------------------------*/
 
+#include "cfg.h"
+
 
 /* Macro Definition ---------------------------------------------------------*/
 
@@ -16,5 +18,10 @@
 
 /* Exported Function --------------------------------------------------------*/
 
+#if (APP_RTC_CLOCK_ENABLE)
+void bud_setup( void );
+void lcd_setup( void );
+void burtc_setup( void );
+#endif
 
 #endif

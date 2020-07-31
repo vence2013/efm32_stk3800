@@ -31,7 +31,9 @@
 /* General */
 #define FUNC_TIMER                                              (61u)
 #define FUNC_ADC                                                (62u)
-#define FUNC_VERIFY                                             FUNC_ADC
+/* Feature */
+#define FUNC_LESENSE                                            (81u)
+#define FUNC_VERIFY                                             FUNC_LESENSE
 
 
 /* Structure Definition -----------------------------------------------------*/

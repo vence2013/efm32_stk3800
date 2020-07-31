@@ -26,9 +26,24 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>drivers/segmentlcd.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/hardware/kit/common/drivers/segmentlcd.c</location>
+		</link>
+		<link>
+			<name>emlib/em_burtc.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_burtc.c</location>
+		</link>
+		<link>
 			<name>emlib/em_cmu.c</name>
 			<type>1</type>
 			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_cmu.c</location>
+		</link>
+		<link>
+			<name>emlib/em_core.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_core.c</location>
 		</link>
 		<link>
 			<name>emlib/em_emu.c</name>
@@ -39,6 +54,16 @@
 			<name>emlib/em_gpio.c</name>
 			<type>1</type>
 			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_gpio.c</location>
+		</link>
+		<link>
+			<name>emlib/em_lcd.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_lcd.c</location>
+		</link>
+		<link>
+			<name>emlib/em_rmu.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_rmu.c</location>
 		</link>
 		<link>
 			<name>emlib/em_system.c</name>

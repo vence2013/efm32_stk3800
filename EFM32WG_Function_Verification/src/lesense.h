@@ -1,5 +1,5 @@
-#ifndef __RTC_CLOCK_H__
-#define __RTC_CLOCK_H__
+#ifndef __LESENSE_H__
+#define __LESENSE_H__
 
 
 /* Include File -------------------------------------------------------------*/
@@ -16,7 +16,6 @@
 
 /* Exported Function --------------------------------------------------------*/
 
-void rtc_clock_task( void );
 
 
 #endif
