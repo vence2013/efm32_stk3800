@@ -36,6 +36,11 @@
 			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/hardware/kit/common/drivers/segmentlcd.c</location>
 		</link>
 		<link>
+			<name>emlib/em_acmp.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_acmp.c</location>
+		</link>
+		<link>
 			<name>emlib/em_adc.c</name>
 			<type>1</type>
 			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_adc.c</location>
@@ -54,6 +59,11 @@
 			<name>emlib/em_core.c</name>
 			<type>1</type>
 			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_core.c</location>
+		</link>
+		<link>
+			<name>emlib/em_dac.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_dac.c</location>
 		</link>
 		<link>
 			<name>emlib/em_emu.c</name>

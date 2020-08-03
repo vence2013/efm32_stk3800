@@ -11,7 +11,7 @@ int main(void)
 	BSP_TraceProfilerSetup();
 
 	/* Function Verification */
-	//adc_single();
+	prs_timer_trigger_adc();
 
 	/* Infinite loop */
 	while (1) {

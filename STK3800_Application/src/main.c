@@ -1,5 +1,5 @@
 #include "em_chip.h"
-#include "rtc_clock.h"
+#include "cfg.h"
 
 
 int main(void)
@@ -7,7 +7,7 @@ int main(void)
   /* Chip errata */
   CHIP_Init();
 
-  rtc_clock_task();
+  usb_hid_kbd_task();
 
   /* Infinite loop */
   while (1) {

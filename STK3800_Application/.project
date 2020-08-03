@@ -26,6 +26,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>drivers/hidkbd.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/hardware/kit/common/drivers/hidkbd.c</location>
+		</link>
+		<link>
 			<name>drivers/segmentlcd.c</name>
 			<type>1</type>
 			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/hardware/kit/common/drivers/segmentlcd.c</location>
@@ -71,6 +76,11 @@
 			<locationURI>STUDIO_SDK_LOC/platform/emlib/src/em_system.c</locationURI>
 		</link>
 		<link>
+			<name>emlib/em_timer.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_timer.c</location>
+		</link>
+		<link>
 			<name>emlib/em_usart.c</name>
 			<type>1</type>
 			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/emlib/src/em_usart.c</location>
@@ -84,6 +94,36 @@
 			<name>CMSIS/EFM32WG/system_efm32wg.c</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/Device/SiliconLabs/EFM32WG/Source/system_efm32wg.c</locationURI>
+		</link>
+		<link>
+			<name>middleware/usb_gecko/em_usbd.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/middleware/usb_gecko/src/em_usbd.c</location>
+		</link>
+		<link>
+			<name>middleware/usb_gecko/em_usbdch9.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/middleware/usb_gecko/src/em_usbdch9.c</location>
+		</link>
+		<link>
+			<name>middleware/usb_gecko/em_usbdep.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/middleware/usb_gecko/src/em_usbdep.c</location>
+		</link>
+		<link>
+			<name>middleware/usb_gecko/em_usbdint.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/middleware/usb_gecko/src/em_usbdint.c</location>
+		</link>
+		<link>
+			<name>middleware/usb_gecko/em_usbhal.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/middleware/usb_gecko/src/em_usbhal.c</location>
+		</link>
+		<link>
+			<name>middleware/usb_gecko/em_usbtimer.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/platform/middleware/usb_gecko/src/em_usbtimer.c</location>
 		</link>
 	</linkedResources>
 </projectDescription>

@@ -12,10 +12,11 @@
 
 /* Macro Definition ---------------------------------------------------------*/
 
-#define APP_RTC_CLOCK_ENABLE                                     (1u)
+#define APP_RTC_CLOCK_ENABLE                                     (0u)
 #if (APP_RTC_CLOCK_ENABLE)
 #define APP_RTC_CLOCK_DEBUG                                      (1u)
 #endif
+#define APP_USB_HID_KBD_ENABLE                                   (1u)
 
 
 #if (APP_RTC_CLOCK_DEBUG)
@@ -31,5 +32,8 @@
 
 /* Exported Function --------------------------------------------------------*/
 
+
+#include "rtc_clock.h"
+#include "usb_hid_kbd.h"
 
 #endif

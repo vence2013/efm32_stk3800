@@ -16,6 +16,8 @@
 
 /* Exported Function --------------------------------------------------------*/
 
+void acmp_lightsense( void );
+void acmp_lightsense_vdd_div_x( void );
 
 
 #endif

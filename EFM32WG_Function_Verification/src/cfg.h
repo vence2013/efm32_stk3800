@@ -31,9 +31,12 @@
 /* General */
 #define FUNC_TIMER                                              (61u)
 #define FUNC_ADC                                                (62u)
+#define FUNC_DAC                                                (63u)
+#define FUNC_PRS                                                (64u)
 /* Feature */
-#define FUNC_LESENSE                                            (81u)
-#define FUNC_VERIFY                                             FUNC_LESENSE
+#define FUNC_ACMP                                               (81u)
+#define FUNC_LESENSE                                            (82u)
+#define FUNC_VERIFY                                             FUNC_PRS
 
 
 /* Structure Definition -----------------------------------------------------*/
@@ -57,6 +60,9 @@
 #include "msc.h"
 #include "timer.h"
 #include "adc.h"
+#include "acmp.h"
+#include "dac.h"
+#include "prs.h"
 
 
 #endif

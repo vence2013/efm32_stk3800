@@ -4,7 +4,6 @@
 #include "em_burtc.h"
 #include "segmentlcd.h"
 #include "clock.h"
-#include "rtc_clock.h"
 #include "rtc_clock_driver.h"
 #include "cfg.h"
 #include <stdint.h>
