@@ -16,6 +16,7 @@
 
 /* Exported Function --------------------------------------------------------*/
 
+void lesense_touch( void );
 
 
 #endif

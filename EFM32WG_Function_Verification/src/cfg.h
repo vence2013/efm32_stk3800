@@ -36,7 +36,7 @@
 /* Feature */
 #define FUNC_ACMP                                               (81u)
 #define FUNC_LESENSE                                            (82u)
-#define FUNC_VERIFY                                             FUNC_PRS
+#define FUNC_VERIFY                                             FUNC_LESENSE
 
 
 /* Structure Definition -----------------------------------------------------*/
@@ -63,6 +63,7 @@
 #include "acmp.h"
 #include "dac.h"
 #include "prs.h"
+#include "lesense.h"
 
 
 #endif

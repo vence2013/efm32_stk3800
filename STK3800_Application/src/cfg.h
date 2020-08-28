@@ -34,6 +34,6 @@
 
 
 #include "rtc_clock.h"
-#include "usb_hid_kbd.h"
+#include "usbd_hid_kbd.h"
 
 #endif

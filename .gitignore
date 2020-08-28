@@ -1,2 +1,7 @@
 /.metadata
 /outgoing
+/STK3800_usb_isolated
+/STK3800_usbdcomposite
+/STK3800_usbdhidkbd
+/STK3800_usbdmsd
+/STK3800_usbdvud

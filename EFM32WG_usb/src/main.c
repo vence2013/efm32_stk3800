@@ -1,6 +1,7 @@
+#include "em_device.h"
 #include "em_chip.h"
 #include "bsp_trace.h"
-#include "cfg.h"
+#include "hid.h"
 
 
 int main(void)
@@ -10,8 +11,7 @@ int main(void)
 	/* If first word of user data page is non-zero, enable Energy Profiler trace */
 	BSP_TraceProfilerSetup();
 
-	/* Function Verification */
-	lesense_touch();
+	hid_setup();
 
 	/* Infinite loop */
 	while (1) {

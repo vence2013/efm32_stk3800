@@ -1,20 +1,3 @@
-/***************************************************************************//**
- * @file
- * @brief USB protocol stack library, application supplied configuration options.
- *******************************************************************************
- * # License
- * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
- *******************************************************************************
- *
- * The licensor of this software is Silicon Laboratories Inc. Your use of this
- * software is governed by the terms of Silicon Labs Master Software License
- * Agreement (MSLA) available at
- * www.silabs.com/about-us/legal/master-software-license-agreement. This
- * software is distributed to you in Source Code format and is governed by the
- * sections of the MSLA applicable to Source Code.
- *
- ******************************************************************************/
-
 #ifndef __USBCONFIG_H
 #define __USBCONFIG_H
 
@@ -34,6 +17,7 @@ extern "C" {
 
 #define USB_DEVICE        /* Compile stack for device mode. */
 
+
 /****************************************************************************
 **                                                                         **
 ** Specify number of endpoints used (in addition to EP0).                  **
@@ -48,6 +32,7 @@ extern "C" {
 *****************************************************************************/
 #define NUM_APP_TIMERS 2
 
+
 /****************************************************************************
 **                                                                         **
 ** USB HID keyboard class device driver definitions.                       **
@@ -56,9 +41,10 @@ extern "C" {
 #define HIDKBD_INTERFACE_NO     0
 #define HIDKBD_INTR_IN_EP_ADDR  0x81    /* Bit 7 must be set.                 */
 #define HIDKBD_POLL_RATE        24      /* The bInterval reported with the    */
-/* interrupt IN endpoint descriptor.  */
+                                        /* interrupt IN endpoint descriptor.  */
 #define HIDKBD_IDLE_TIMER       0       /* Timer used to implement the idle-  */
-/* rate defined in the HID class spec.*/
+                                        /* rate defined in the HID class spec.*/
+
 
 #ifdef __cplusplus
 }
