@@ -20,21 +20,6 @@ extern "C" {
 
 /****************************************************************************
 **                                                                         **
-** Specify number of endpoints used (in addition to EP0).                  **
-**                                                                         **
-*****************************************************************************/
-#define NUM_EP_USED 1
-
-/****************************************************************************
-**                                                                         **
-** Specify number of application timers you need.                          **
-**                                                                         **
-*****************************************************************************/
-#define NUM_APP_TIMERS 2
-
-
-/****************************************************************************
-**                                                                         **
 ** USB HID keyboard class device driver definitions.                       **
 **                                                                         **
 *****************************************************************************/
@@ -45,6 +30,16 @@ extern "C" {
 #define HIDKBD_IDLE_TIMER       0       /* Timer used to implement the idle-  */
                                         /* rate defined in the HID class spec.*/
 
+
+#define USBDEMO_HID_KBD                                           (1)
+#define USBDEMO_CDC_USB2SERIAL                                    (2)
+#define USBDEMO_USE                                               USBDEMO_CDC_USB2SERIAL
+
+#if (USBDEMO_USE == USBDEMO_HID)
+#include "hid_config.h"
+#elif (USBDEMO_USE == USBDEMO_CDC_USB2SERIAL)
+#include "cdc_config.h"
+#endif
 
 #ifdef __cplusplus
 }

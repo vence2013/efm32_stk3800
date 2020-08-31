@@ -1,7 +1,7 @@
 #include "hid_descriptor.h"
 
 SL_ALIGN(4)
-const USB_DeviceDescriptor_TypeDef USBDESC_deviceDesc SL_ATTRIBUTE_ALIGN(4) =
+const USB_DeviceDescriptor_TypeDef USBDESC_hid_device SL_ATTRIBUTE_ALIGN(4) =
 {
   .bLength            = USB_DEVICE_DESCSIZE,
   .bDescriptorType    = USB_DEVICE_DESCRIPTOR,
@@ -21,7 +21,7 @@ const USB_DeviceDescriptor_TypeDef USBDESC_deviceDesc SL_ATTRIBUTE_ALIGN(4) =
 
 
 SL_ALIGN(4)
-const uint8_t USBDESC_configDesc[] SL_ATTRIBUTE_ALIGN(4) =
+const uint8_t USBDESC_hid_config[] SL_ATTRIBUTE_ALIGN(4) =
 {
   /*** Configuration descriptor ***/
   USB_CONFIG_DESCSIZE,    /* bLength                                   */
@@ -81,7 +81,7 @@ const uint8_t USBDESC_configDesc[] SL_ATTRIBUTE_ALIGN(4) =
 };
 
 const void *USBDESC_HidDescriptor = (void*)
-                                    &USBDESC_configDesc[USB_CONFIG_DESCSIZE + USB_INTERFACE_DESCSIZE];
+                                    &USBDESC_hid_config[USB_CONFIG_DESCSIZE + USB_INTERFACE_DESCSIZE];
 
 STATIC_CONST_STRING_DESC_LANGID(langID, 0x04, 0x09);
 STATIC_CONST_STRING_DESC(iManufacturer, 'S', 'i', 'l', 'i', 'c', 'o', 'n', ' ', 'L', \
@@ -93,7 +93,7 @@ STATIC_CONST_STRING_DESC(iProduct, 'E', 'F', 'M', '3', '2', ' ', 'U', 'S', 'B', 
 STATIC_CONST_STRING_DESC(iSerialNumber, '0', '0', '0', '0', '0', '0', \
                          '0', '0', '1', '2', '3', '4');
 
-const void * const USBDESC_strings[] =
+const void * const USBDESC_hid_strings[] =
 {
   &langID,
   &iManufacturer,
@@ -103,7 +103,7 @@ const void * const USBDESC_strings[] =
 
 /* Endpoint buffer sizes */
 /* 1 = single buffer, 2 = double buffering, 3 = triple buffering ... */
-const uint8_t USBDESC_bufferingMultiplier[NUM_EP_USED + 1] = { 1, 1 };
+const uint8_t USBDESC_hid_bufferingMultiplier[NUM_EP_USED + 1] = { 1, 1 };
 
 const HIDKBD_KeyReport_t USBDESC_noKeyReport =
 { 0x00, 0x00, { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } };

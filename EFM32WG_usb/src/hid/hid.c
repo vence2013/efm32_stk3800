@@ -23,12 +23,12 @@ static const USBD_Callbacks_TypeDef callbacks =
 
 static const USBD_Init_TypeDef usbInitStruct =
 {
-  .deviceDescriptor    = &USBDESC_deviceDesc,
-  .configDescriptor    = USBDESC_configDesc,
-  .stringDescriptors   = USBDESC_strings,
-  .numberOfStrings     = sizeof(USBDESC_strings) / sizeof(void*),
+  .deviceDescriptor    = &USBDESC_hid_device,
+  .configDescriptor    = USBDESC_hid_config,
+  .stringDescriptors   = USBDESC_hid_strings,
+  .numberOfStrings     = sizeof(USBDESC_hid_strings) / sizeof(void*),
   .callbacks           = &callbacks,
-  .bufferingMultiplier = USBDESC_bufferingMultiplier,
+  .bufferingMultiplier = USBDESC_hid_bufferingMultiplier,
   .reserved            = 0
 };
 

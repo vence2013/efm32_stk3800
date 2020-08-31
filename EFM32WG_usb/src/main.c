@@ -2,6 +2,7 @@
 #include "em_chip.h"
 #include "bsp_trace.h"
 #include "hid.h"
+#include "cdc_usb2serial.h"
 
 
 int main(void)
@@ -11,7 +12,8 @@ int main(void)
 	/* If first word of user data page is non-zero, enable Energy Profiler trace */
 	BSP_TraceProfilerSetup();
 
-	hid_setup();
+	//hid_setup();
+	cdc_setup();
 
 	/* Infinite loop */
 	while (1) {
