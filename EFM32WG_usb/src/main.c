@@ -1,8 +1,9 @@
 #include "em_device.h"
 #include "em_chip.h"
 #include "bsp_trace.h"
-#include "hid.h"
+#include "hid_keyboard.h"
 #include "cdc_usb2serial.h"
+#include "uvd_led.h"
 
 
 int main(void)
@@ -13,7 +14,8 @@ int main(void)
 	BSP_TraceProfilerSetup();
 
 	//hid_setup();
-	cdc_setup();
+	//cdc_setup();
+	uvd_setup();
 
 	/* Infinite loop */
 	while (1) {

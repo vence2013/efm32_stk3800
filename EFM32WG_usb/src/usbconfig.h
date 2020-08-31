@@ -33,12 +33,18 @@ extern "C" {
 
 #define USBDEMO_HID_KBD                                           (1)
 #define USBDEMO_CDC_USB2SERIAL                                    (2)
-#define USBDEMO_USE                                               USBDEMO_CDC_USB2SERIAL
+#define USBDEMO_MSC_UDISK                                         (3)
+#define USBDEMO_UVD_LED                                           (4)
+#define USBDEMO_USE                                               USBDEMO_UVD_LED
 
-#if (USBDEMO_USE == USBDEMO_HID)
-#include "hid_config.h"
+#if   (USBDEMO_USE == USBDEMO_HID)
+	#include "hid_config.h"
 #elif (USBDEMO_USE == USBDEMO_CDC_USB2SERIAL)
-#include "cdc_config.h"
+	#include "cdc_config.h"
+#elif (USBDEMO_USE == USBDEMO_MSC_UDISK)
+	#include "msc_config.h"
+#elif (USBDEMO_USE == USBDEMO_UVD_LED)
+	#include "uvd_config.h"
 #endif
 
 #ifdef __cplusplus

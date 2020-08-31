@@ -26,6 +26,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>BSP/bsp_stk_leds.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/hardware/kit/common/bsp/bsp_stk_leds.c</location>
+		</link>
+		<link>
 			<name>BSP/bsp_trace.c</name>
 			<type>1</type>
 			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/hardware/kit/common/bsp/bsp_trace.c</location>
@@ -44,6 +49,11 @@
 			<name>Drivers/hidkbd.c</name>
 			<type>1</type>
 			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/hardware/kit/common/drivers/hidkbd.c</location>
+		</link>
+		<link>
+			<name>Drivers/msdd.c</name>
+			<type>1</type>
+			<location>C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/gecko_sdk_suite/v2.7/hardware/kit/common/drivers/msdd.c</location>
 		</link>
 		<link>
 			<name>emlib/em_cmu.c</name>

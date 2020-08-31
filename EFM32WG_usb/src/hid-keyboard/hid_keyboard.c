@@ -1,7 +1,7 @@
 #include "em_usb.h"
 #include "hid_descriptor.h"
 
-#include "hid.h"
+#include "hid_keyboard.h"
 
 
 #define SCAN_TIMER              1       /* Timer used to scan keyboard. */
